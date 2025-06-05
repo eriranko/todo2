@@ -1,0 +1,36 @@
+.todo__alert--danger {
+    padding: 10px 30px;
+    border-color: #f5c2c7;
+    background-color: #f8d7da;
+    color: #842029;
+    text-align: left;
+}
+
+.create_content {
+    margin: 0 auto;
+    max-width: 1230px;
+    text-align: center;
+}
+
+.create-form {
+    width: 300px;
+    margin: 0 auto;
+}
+
+.create-form__group {
+    display: flex;
+}
+
+.create-form__title {
+    width: 100px;
+    text-align: left;
+}
+
+.create-form__item {
+    align-items: center;
+    padding-top: 15px;
+}
+
+.create-form__button {
+    margin-top: 20px;
+}

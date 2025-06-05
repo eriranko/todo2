@@ -1,0 +1,35 @@
+.header {
+    background-color: bisque;
+    height: 70px;
+    margin-top: 0;
+}
+
+.header__inner {
+    max-width: 1230px;
+    min-width: 600px;
+    margin: 0 auto;
+    display: flex;
+    justify-content: space-between;
+    padding: 15px 30px;
+}
+
+.header__logo {
+    font-size: 24px;
+    font-weight: bold;
+    color: rgb(239, 115, 32);
+    text-decoration: none;
+}
+
+.header-nav {
+    padding-right: 50px;
+}
+
+.header-nav__item {
+    padding-top: 10px;
+    display: flex;
+}
+
+.header-nav__list {
+    padding-left: 15px;
+    text-decoration: none;
+}
