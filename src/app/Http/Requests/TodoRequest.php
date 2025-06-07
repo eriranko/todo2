@@ -25,7 +25,7 @@ class TodoRequest extends FormRequest
     {
         return [
             'content' => ['required', 'string', 'max:20'],
-            'deadline' => ['after:today']
+            'deadline' => ['after_or_equal:today']
         ];
     }
 

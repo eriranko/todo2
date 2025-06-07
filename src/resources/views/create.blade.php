@@ -53,18 +53,12 @@
                 <p>重要度：</p>
             </div>
             <div class="create-form__item">
+                @foreach($points as $point)
                 <div class="create-form__item-inner">
-                    <input class="create-form__item-radio" type="radio" name="point" value="高い">
-                    <label for="高">高い</label>
+                    <input class="create-form__item-radio" type="radio" name="point_id" value="{{ $point['id'] }}">
+                    <label for="{{$point['id']}}">{{$point['level']}}</label>
                 </div>
-                <div class="create-form__item-inner">
-                    <input class="create-form__item-radio" type="radio" name="point" value=普通">
-                    <label for="中">普通</label>
-                </div>
-                <div class="create-form__item-inner">
-                    <input class="create-form__item-radio" type="radio" name="point" value="低い">
-                    <label for="低">低い</label>
-                </div>
+                @endforeach
             </div>
         </div>
         <div class="create-form__button">

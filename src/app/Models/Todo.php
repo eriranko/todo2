@@ -22,4 +22,22 @@ class Todo extends Model
     public function point() {
         return $this->belongsTo(Point::class);
     }
+
+    public function scopeKeywordSearch($query, $keyword) {
+        if (!empty($keyword)) {
+            $query->where('content', 'like', '%' . $keyword . '%');
+        }
+    }
+
+    public function scopeCategorySearch($query, $category_id) {
+        if (!empty($category_id)) {
+            $query->where('category_id', $category_id);
+        }
+    }
+
+    public function scopePointSearch($query, $point_id) {
+        if(!empty($point_id)) {
+            $query->where('point_id', $point_id);
+        }
+    }
 }
