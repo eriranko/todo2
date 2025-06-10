@@ -8,6 +8,8 @@ use App\Models\Todo;
 use App\Models\Category;
 use App\Models\Point;
 
+use function PHPUnit\Framework\isNull;
+
 class TodoController extends Controller
 {
     public function index(Request $request) {
@@ -29,7 +31,7 @@ class TodoController extends Controller
         }
 
         //idのソートデータを取得して返す・・1ページに10件までのページネーションつけたい
-        $todos = Todo::with('category', 'point')->orderBy($sort, $order)->get();
+        $todos = Todo::with('category', 'point')->where('is_completed', '=', 0)->orderBy($sort, $order)->get();
         $categories = Category::all();
         $points = Point::all();
 
@@ -45,8 +47,14 @@ class TodoController extends Controller
 
     public function store(TodoRequest $request) {
         //todo追加処理記入
-        $todo = $request->only(['content', 'category_id', 'deadline', 'point_id']);
-        Todo::create($todo);
+
+        if (isNull($request->point_id)) {
+            $request->merge(['point_id' => null]);
+            $todo = $request->all();
+        } else {
+            $todo = $request->only(['content', 'category_id', 'deadline', 'point_id']);
+        }
+            Todo::create($todo);
 
         return redirect('/')->with('message', 'Todoを追加しました');
     }
@@ -75,11 +83,23 @@ class TodoController extends Controller
 
     //todo検索
     public function search(Request $request) {
+
+        $sort = $request->sort;
+        $order = $request->order;
+
+        //パラメータなしの場合、category_idの降順(desc)を設定
+        if (is_null($sort) && is_null($order)) {
+            $sort = 'id';
+            $order = 'desc';
+        }
+
+        $orderpram = "desc";
+
         $todos = Todo::with('category', 'point')->CategorySearch($request->category_id)->PointSearch($request->point_id)->KeywordSearch($request->keyword)->get();
         $categories = Category::all();
         $points = Point::all();
 
-        return view('index', compact('todos', 'categories', 'points'));
+        return view('index', compact('todos', 'categories', 'points', 'order'));
     }
 
 }

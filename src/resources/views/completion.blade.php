@@ -6,6 +6,13 @@
 
 @section('content')
 <div class="completion_content">
+    <div class="todo__alert">
+        @if(session('message'))
+        <div class="todo__alert--success">
+            {{ session('message') }}
+        </div>
+        @endif
+    </div>
     <div class="content__title">
         <h2>完了したTodo一覧</h2>
     </div>
@@ -23,7 +30,7 @@
                     @csrf
                     <td class="restore-form__item">
                         <p class="restore-form__item-input">{{ $completion['content'] }}</p>
-                        <input type="hidden" name="id" value="{{ $todo['id'] }}">
+                        <input type="hidden" name="id" value="{{ $completion['id'] }}">
                     </td>
                     <td class="restore-form__item">
                         <p class="restore-form__item-input">{{ $completion['category']['name'] }}</p>
@@ -32,7 +39,7 @@
                         <p class="restore-form__item-input">{{ $completion['deadline'] }}</p>
                     </td>
                     <td class="restore-form__item">
-                        <p class="restore-form__item-input">{{ $completion['point']['level'] }}</p>
+                        <p class="restore-form__item-input">{{optional($completion->point)->level ?? 'なし'}}</p>
                     </td>
                     <td class="restore-form__button">
                         <button class="restore-form__button-submit">戻す</button>

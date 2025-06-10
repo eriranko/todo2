@@ -35,7 +35,7 @@ class TodoRequest extends FormRequest
             'content.required' => 'Todoを入力してください',
             'content.string' => '文字列で入力してください',
             'content.mas' => '20文字以内で入力してください',
-            'deadline.after' => '今日以降の日付で入力してください'
+            'deadline.after_or_equal' => '今日以降の日付で入力してください'
         ];
     }
 }

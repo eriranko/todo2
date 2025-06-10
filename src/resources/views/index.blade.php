@@ -50,7 +50,7 @@
                     </div>
                     <div class="search-form__item">
                         @foreach ($points as $point)
-                            <input class="search-form__item-checkbox" name="point_id" type="checkbox">
+                            <input class="search-form__item-checkbox" name=point_id id="{{$point['id']}}" type="checkbox">
                             <label for="{{$point['id']}}">{{$point['level']}}</label>
                         @endforeach
                         </select>
@@ -75,9 +75,9 @@
                 <button class="button-form__categories-submit" onclick="location.href='/todos/create'">＋ 〇〇を作成する</button>
             </div>
         </div>
-        <form class="button-form" action="/todos/csv" method="">
+        <form class="button-form" action="/todos/csv" method="get">
             <div class="button-form__csv">
-                <button class="button-form__csv-submit" type="submit" name="content">＋ 〇〇を作成する</button>
+                <button class="button-form__csv-submit" type="submit" name="content">＋ CSVを作成する</button>
             </div>
         </form>
         <form class="button-form" action="/todos/calendar" method="">
@@ -113,17 +113,16 @@
                         <p class="update-form__item-input">{{ $todo['deadline'] }}</p>
                     </td>
                     <td class="update-form__item">
-                        <p class="update-form__item-input">{{ $todo['point']['level'] }}</p>
+                        <p class="update-form__item-input">{{optional($todo->point)->level ?? 'なし'}}</p>
                     </td>
                     <td class="update-form__button">
                         <button class="update-form__button-submit">編集</button>
                     </td>
                 </form>
                 <form action="/completions" method="post">
-                    @method('PATCH')
-                    @method('DELETE')
                     @csrf
                     <td class="completion-form__button">
+                        <input type="hidden" name="id" value="{{ $todo['id'] }}">
                         <button class="completion-form__button-submit">完了</button>
                     </td>
                 </form>

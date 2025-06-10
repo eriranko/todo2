@@ -12,7 +12,8 @@ class Todo extends Model
         'category_id',
         'point_id',
         'content',
-        'deadline'
+        'deadline',
+        'is_completed',
     ];
 
     public function category() {

@@ -35,9 +35,9 @@
                 <p>カテゴリ：</p>
             </div>
             <div class="select-form__item">
-                <select class="select-form__item-select" name="category_id" value="{{ $todo['category_id'] }}">
+                <select class="select-form__item-select" name="category_id">
                     @foreach ($categories as $category)
-                    <option value="{{ $category['id'] }}">{{ $category['name'] }}</option>
+                    <option value="{{ $category['id'] }}" @if ($category['id'] == $todo['category']['id']) selected @endif>{{ $category['name'] }}</option>
                     @endforeach
                 </select>
             </div>
@@ -55,16 +55,26 @@
                 <p>重要度：</p>
             </div>
             <div class="select-form__item">
-                @foreach($points as $point)
-                <div class="select-form__item-inner">
-                    <input class="select-form__item-radio" type="radio" name="point_id" value="{{ $todo['point_id'] }}">
-                    <label for="{{$point['id']}}">{{$point['level']}}</label>
-                </div>
-                @endforeach
+                @if (@isset($todo['point']['id']))
+                    @foreach($points as $point)
+                    <div class="select-form__item-inner">
+                        <input class="select-form__item-radio" type="radio" name="point_id">
+                        <label for="{{$point['id']}}" @if ($point['id'] == $todo['point']['id']) checked @endif>{{$point['level']}}</label>
+                    </div>
+                    @endforeach
+                @endif
+                @if (@is_null($todo['point']['id']))
+                    @foreach($points as $point)
+                    <div class="select-form__item-inner">
+                        <input class="select-form__item-radio" type="radio" name="point_id">
+                        <label for="{{$point['id']}}">{{$point['level']}}</label>
+                    </div>
+                    @endforeach
+                @endif
             </div>
         </div>
-        <div class="create-form__button">
-            <button class="create-form__button-submit">登録する</button>
+        <div class="select-form__button">
+            <button class="select-form__button-submit">修正する</button>
         </div>
     </form>
 
